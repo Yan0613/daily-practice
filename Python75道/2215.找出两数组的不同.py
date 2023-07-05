@@ -1,3 +1,6 @@
+from ast import List
+
+
 class Solution:
     def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
         set1 = set(nums1)   # nums1 所有元素的哈希集合
