@@ -14,7 +14,7 @@ var expect = function (val) {
       } else {
         throw new Error("Equal")
       }
-    }1
+    }
 
 
   }
