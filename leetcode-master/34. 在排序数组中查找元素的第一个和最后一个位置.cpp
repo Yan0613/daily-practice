@@ -1,5 +1,6 @@
 using namespace std;
 #include <vector>
+#include <iostream>
 class Solution
 {
 public:
@@ -59,3 +60,22 @@ private:
         return leftBorder;
     }
 };
+
+// 寻找target在数组里的左右边界，有如下三种情况：
+
+// 情况一：target 在数组范围的右边或者左边，例如数组{3, 4, 5}，target为2或者数组{3, 4, 5},target为6，此时应该返回{-1, -1}
+// 情况二：target 在数组范围中，且数组中不存在target，例如数组{3,6,7},target为5，此时应该返回{-1, -1}
+// 情况三：target 在数组范围中，且数组中存在target，例如数组{3,6,7},target为6，此时应该返回{1, 1}
+int main(int argc, char const *argv[])
+{
+    std::vector<int> nums = {1, 2, 3, 4, 4, 5};              // 定义并初始化一个整数向量
+    Solution solution;                                       // 创建 Solution 类的对象
+    std::vector<int> result = solution.searchRange(nums, 4); // 调用 searchRange 函数
+    // 输出结果
+    for (int num : result)
+    {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    return 0;
+}
