@@ -1,7 +1,7 @@
 /**
  * 二分查找
  */
-public class solution {
+public class 二分查找 {
     public int search(int[] nums, int target) {
         int left = 0, right = nums.length - 1;
         while (left <= right) {
