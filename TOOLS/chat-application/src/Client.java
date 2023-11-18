@@ -1,12 +1,15 @@
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
-import java.security.Key;
-import java.security.PublicKey;
+import java.security.*;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 
 public class Client {
@@ -14,7 +17,7 @@ public class Client {
     private static final String SERVER_PUBLIC_KEY = "MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGk9wUQ4G9PChyL5SUkCyuHjTNOglEy5h4KEi0xpgjxi/UbIH27NXLXOr94JP1N5pa1BbaVSxlvpuCDF0jF9jlZw5IbBg1OW2R1zUACK+NrUIAYHWtagG7KB/YcyNXHOZ6Icv2lXXd7MbIao3ShrUVXo3u+5BJFCEibd8a/JD/KpAgMBAAE=";
     private PublicKey serverPublicKey;
     private Key communicationKey;
-    //-------------------------------------------------------------
+    // -------------------------------------------------------------
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -32,6 +35,14 @@ public class Client {
 
             createGUI();
             logMessage("Connected to server at " + serverAddress + ":" + serverPort);
+            // AES Seed
+            byte[] aesSeed = Encryption.generateSeed();
+            byte[] encryptedSeed = Encryption.pkEncrypt(serverPublicKey, aesSeed);
+            this.communicationKey = Encryption.generateAESKey(aesSeed);
+            // send encrypted seed to server
+            writer.write(Base64.getEncoder().encodeToString(encryptedSeed));
+            writer.newLine();
+            writer.flush();
             new Thread(new IncomingReader()).start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,11 +76,27 @@ public class Client {
     private void sendMessage() {
         try {
             String message = messageField.getText();
-            writer.write(getCurrentTime() + socket.getLocalPort() + ":" + message + "\n");
+            String encrypedMessage = Encryption.encrypt(communicationKey, message);
+            writer.write(encrypedMessage + "\n");
+            System.out.printf(encrypedMessage);
+            // writer.write(getCurrentTime() + socket.getLocalPort() + ":" + message +
+            // "\n");
             writer.flush();
             messageField.setText("");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
         }
     }
 

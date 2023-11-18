@@ -13,8 +13,9 @@ import javax.swing.*;
 public class Server {
     private static final String RSA = "RSA";
     private Key privateKey;
+    private Key communicationKey;
 
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
     private ServerSocket serverSocket;
     private ArrayList<ClientHandler> clients = new ArrayList<>();
 
@@ -24,6 +25,7 @@ public class Server {
     public Server(int port) {
         try {
             privateKey = Encryption.readPrivateKey("./keypairs/pkcs8_key");
+            // this.communicationKey = Encryption.pkEncrypt(privateKey,encrypedSeed);
 
             serverSocket = new ServerSocket(port);
 
@@ -35,7 +37,7 @@ public class Server {
                 Socket clientSocket = serverSocket.accept();
                 logMessage("New client connected: " + clientSocket);
 
-                ClientHandler clientHandler = new ClientHandler(clientSocket, this);
+                ClientHandler clientHandler = new ClientHandler(clientSocket, this, privateKey);
                 clients.add(clientHandler);
                 new Thread(clientHandler).start();
             }
