@@ -10,6 +10,9 @@ class ListNode {
     }
 }
 
+/**
+ * the while loop shows the diffrence of the length of ListNodeA and ListNodeB
+ */
 public class getIntersectionNodeSo {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null)
