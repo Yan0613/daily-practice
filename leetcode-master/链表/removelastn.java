@@ -1,7 +1,20 @@
+
 /**
  * 19.删除链表倒数第n个结点
  * 双指针法，fast先走n+1步
  */
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {
+    }
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
 public class removelastn {
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
