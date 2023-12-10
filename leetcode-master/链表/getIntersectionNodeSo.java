@@ -1,3 +1,7 @@
+/*
+ * 链表相交
+ */
+
 class ListNode {
     int val;
     ListNode next;
