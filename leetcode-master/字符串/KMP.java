@@ -1,7 +1,7 @@
 public class KMP {
     public void getNext(int[] next, String s) {
         int j = -1;
-        next[0] = j;
+        next[0] = j;// 0的回退位置也应该是0
         for (int i = 1; i < s.length(); i++) {
             while (j >= 0 && s.charAt(i) != s.charAt(j + 1)) {
                 j = next[j];
