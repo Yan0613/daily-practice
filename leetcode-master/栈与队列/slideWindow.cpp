@@ -11,7 +11,7 @@ public:
         {
             if (val > dq.front() && !dq.empty())
             {
-                dq.pop_back();
+                dq.pop_back(); // 从队尾删除
             }
             else
             {
