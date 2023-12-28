@@ -11,10 +11,11 @@ class Solution
         "pqrs", // 7
         "tuv",  // 8
         "wxyz"  // 9
-    }
+    };
 
-    private : vector<string>
-                  result;
+private:
+    vector<string>
+        result;
     string path;
     void backtracking(const string &digits, int index)
     {
