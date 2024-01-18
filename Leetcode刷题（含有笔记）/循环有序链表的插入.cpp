@@ -17,9 +17,13 @@ class Node {
 };
 */
 
-class Solution {
-    public Node insert(Node head, int insertVal) {
-        if (head == null) {
+class Solution
+{
+public
+    Node insert(Node head, int insertVal)
+    {
+        if (head == null)
+        {
             Node res = new Node(insertVal);
             res.next = res;
             return res;
@@ -29,12 +33,14 @@ class Solution {
         Node curr = head.next;
 
         while (!(pre.val <= insertVal && insertVal <= curr.val) &&
-               !(pre.val > curr.val && (insertVal >= pre.val || insertVal <= curr.val))) {
+               !(pre.val > curr.val && (insertVal >= pre.val || insertVal <= curr.val)))
+        {
             pre = pre.next;
             curr = curr.next;
 
             // 如果遍历一圈仍未找到插入位置，说明所有元素相等，可以在任意位置插入
-            if (pre == head) {
+            if (pre == head)
+            {
                 break;
             }
         }
