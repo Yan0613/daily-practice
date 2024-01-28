@@ -3,6 +3,7 @@ import java.util.TreeMap;
 class Solution {
     public static int maximumLength(int[] nums) {
         // Arrays.sort(nums);
+        // 统计每个单词出现的次数
         TreeMap<Integer, Integer> treeMap = new TreeMap<>();
         for (int i : nums)
             treeMap.put(i, treeMap.getOrDefault(i, 0) + 1);
