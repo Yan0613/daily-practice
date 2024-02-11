@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itheima.mapper.EmpMapper">
+
+     <select id="list" resultType="com.itheima.pojo.Emp">
+        select *
+        from emp
+        <where>
+        <if test="name != null">
+            name like concat('%', #{name}, '%')
+        </if>
+        <if test="gender != null">
+            and gender = #{gender}
+        </if>
+        <if test="begin != null and end != null">
+            and entrydate between #{begin} and #{end}
+        </if>
+        </where>
+        order by update_time desc
+    </select>
+
+<!--    collection:遍历的集合-->
+<!--    item:遍历出来的元素-->
+<!--    seprator: 分隔符-->
+<!--    open: 遍历开始前拼接的SQL片段-->
+<!--    close: 遍历结束后拼接的SQL片段-->
+    <delete id="deleteByIds">
+        delete form emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
