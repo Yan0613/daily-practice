@@ -20,3 +20,5 @@ func minSubArrayLen(target int, nums []int) int {
         return result
     }
 }
+// 变量 i 和 j 分别是滑动窗口的左右边界，且始终保持 i <= j。
+// i 只在内层 while 循环中递增，而 j 只在外层 for 循环中递增。
