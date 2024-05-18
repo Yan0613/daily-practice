@@ -13,7 +13,7 @@ func swapPairs(head *ListNode) *ListNode {
 		pre.Next = temp.Next
 		temp.Next = temp2.Next
 		temp2.Next = temp
-		pre = temp
+		pre = temp//很重要
 	}
 	return dummy.Next
 }
