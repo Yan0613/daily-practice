@@ -4,5 +4,4 @@ func rotateString(s string, goal string) bool {
     }  
     return strings.Contains(s+s, goal)  
 }  
-  
 // 注意：你需要导入 "strings" 包来使用 strings.Contains 函数
