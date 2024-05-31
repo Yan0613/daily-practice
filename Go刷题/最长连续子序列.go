@@ -9,7 +9,7 @@ func lengthOfLIS(nums []int) int {
 	for i := range dp {  
 		dp[i] = 1  
 	}  
-  
+
 	maxLength := 1 // 最长递增子序列的长度  
 	for i := 1; i < len(nums); i++ {  
 		for j := 0; j < i; j++ {  
@@ -21,6 +21,6 @@ func lengthOfLIS(nums []int) int {
 		// 更新最长递增子序列的长度  
 		maxLength = max(maxLength, dp[i])  
 	}  
-  
+
 	return maxLength  
 } 
